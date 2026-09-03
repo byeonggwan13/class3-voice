@@ -54,6 +54,9 @@
   .yes { background: #27ae60; }
   .no { background: #e74c3c; }
   .question { background: #f39c12; }
+  .fun1 { background: #16a085; }
+  .fun2 { background: #8e44ad; }
+  .fun3 { background: #d35400; }
   .custom-btn { background: #2980b9; grid-column: span 2; padding: 20px; }
 
   .custom-box {
@@ -109,6 +112,9 @@
   <button class="answer yes" onclick="speak('네')">네</button>
   <button class="answer no" onclick="speak('아니요')">아니요</button>
   <button class="answer question" onclick="speak('질문 있습니다')">질문 있습니다</button>
+  <button class="answer fun1" onclick="speak('늬이', 0.8, 1.25)">늬</button>
+  <button class="answer fun2" onclick="speak('니에', 0.8, 1.25)">니에</button>
+  <button class="answer fun3" onclick="speak('녜에암', 0.8, 1.25)">녜암</button>
 </div>
 
 <div class="custom-box">
@@ -133,7 +139,7 @@
     speechSynthesis.onvoiceschanged = pickVoice;
   }
 
-  function speak(text) {
+  function speak(text, rate, pitch) {
     if (!('speechSynthesis' in window)) {
       document.getElementById('status').textContent = '이 브라우저는 음성 출력을 지원하지 않습니다.';
       return;
@@ -142,8 +148,8 @@
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'ko-KR';
     if (koVoice) utter.voice = koVoice;
-    utter.rate = 1;
-    utter.pitch = 1;
+    utter.rate = rate || 1;
+    utter.pitch = pitch || 1;
     document.getElementById('status').textContent = '🔊 "' + text + '"';
     speechSynthesis.speak(utter);
   }
